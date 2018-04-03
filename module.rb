@@ -1,48 +1,52 @@
 module Employee
-  @@total_employee = 0
-  
-  def initialize(id, name)
-    @employee_id = id
-    @employee_name = name
-    @@total_employee += 1
-  end
+  module EmployeeDetail
+    @@total_employee = 0
 
-  def total_employee
-    puts "total employee are : #{@@total_employee}" 
-  end
+    def employee_detail(id, name) #Instance Method
+      @employee_id = id
+      @employee_name = name
+      @@total_employee += 1
+    end
 
-  def print_detail
-    puts "Customer id : #{@employee_id}"
-    puts "Customer name : #{@employee_name}"
-  end
-end
+    def print_employee_detail #Instance Method
+      puts "Employee Id : #{@employee_id}"
+      puts "Employee Name : #{@employee_name}"
+    end
 
-module EmployeeSalary
-  def employee_salary(salary)
-    @salary = salary
-    puts "Employee salary is #{@salary}"
-  end
-end
+    def employee_salary(salary) #Instance Method
+      puts "Salary of #{@employee_name} is #{salary}"
+    end
 
-class EmployeeEnquiry
+    def total_employee #Instance Method
+      puts "Total Employee working in the Company #{@@total_employee}"
+    end
+  end  #end of Module EmployeeDetail 
+
+    def self.included(base)  # Class Method
+      base.extend(EmployeeDetail) 
+    end
+end # end of Module Employee
+
+class Company  #Main Class
   include Employee
-  extend EmployeeSalary
-end
+end #Main class end
 
-employee1 = EmployeeEnquiry.new(1,"bhavesh")
-employee1.print_detail
-EmployeeEnquiry.employee_salary(8000)
+Company.employee_detail(1,"bhavesh")
+Company.print_employee_detail
+Company.employee_salary(20000)
+Company.total_employee
 
-employee2 = EmployeeEnquiry.new(2,"rishabh")
-employee2.print_detail
-EmployeeEnquiry.employee_salary(9000)
+Company.employee_detail(2,"rishabh")
+Company.print_employee_detail
+Company.employee_salary(120254)
+Company.total_employee
 
-employee3 = EmployeeEnquiry.new(3,"lakhan")
-employee3.print_detail
-EmployeeEnquiry.employee_salary(9000)
+Company.employee_detail(3,"lakhan")
+Company.print_employee_detail
+Company.employee_salary(10000)
+Company.total_employee
 
-employee4 = EmployeeEnquiry.new(4,"sarthak")
-employee4.print_detail
-EmployeeEnquiry.employee_salary(12000)
-
-employee4.total_employee
+Company.employee_detail(4,"sarthak")
+Company.print_employee_detail
+Company.employee_salary(125403)
+Company.total_employee
